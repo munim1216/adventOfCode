@@ -36,8 +36,16 @@ for data in file_data:
     left_list = string_to_int_list(lists[0])
     right_list = string_to_int_list(lists[1])
 
-    left_list.sort()
-    right_list.sort()
+left_list.sort()
+right_list.sort()
 
-    for i in range(len(left_list)):
-        difference = left_list[0] - right_list[0]
+print(left_list, right_list)
+
+for i in range(len(left_list)):
+    difference = left_list[i] - right_list[i]
+    difference = abs(difference)
+    total_distance += difference
+
+
+
+print(total_distance)
