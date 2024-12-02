@@ -5,23 +5,6 @@ def get_file_data(file_name):
         data.append(line.rstrip())
     return data
 
-
-def get_answer(file_data):
-    for line in file_data:
-        number = int(line)
-
-        for line2 in file_data:
-            number2 = int(line2)
-
-            if (number + number2) == 2020:
-                return number * number2
-
-
-file_data = get_file_data("Day1Input.txt")
-
-
-# you now have a list of Strings from the input file
-
 def string_to_int_list(str):
     int_list = list()
     for s in str:
@@ -29,12 +12,16 @@ def string_to_int_list(str):
     return int_list
 
 
+file_data = get_file_data("Day1Input.txt")
 total_distance = 0
+
+left_list = []
+right_list = []
 
 for data in file_data:
     lists = data.split("   ")
-    left_list = string_to_int_list(lists[0])
-    right_list = string_to_int_list(lists[1])
+    left_list.append(int(lists[0]))
+    right_list.append(int(lists[1]))
 
 left_list.sort()
 right_list.sort()
