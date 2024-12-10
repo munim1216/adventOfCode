@@ -24,13 +24,23 @@ def get_numbers_from_string(str):
 
 
 product = 0
+process = True
 
 for data in file_data:
     matching_strs = re.findall("mul\\([0-9]*,[0-9]*\\)|do\\(\\)|don't\\(\\)", data)
 
-    for valid_data in matching_strs: # get_numbers_from_string returns 2 numbers, x and y which are multiplied togther in mul.
-        x, y = get_numbers_from_string(valid_data)
-        product += mul(x, y)
+
+    for valid_data in matching_strs:
+        if valid_data == "do()":
+            process = True
+            continue
+        elif valid_data == "don't()":
+            process = False
+            continue
+
+        if process:
+            x, y = get_numbers_from_string(valid_data)
+            product += mul(x, y)
 
 
 print(product)
