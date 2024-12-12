@@ -7,8 +7,11 @@ def get_file_data(file_name):
     for line in f:
         one_d_array.append(line.rstrip())
     two_d_array = []
-    for string in one_d_array:
-        two_d_array.append(list(string))
+    for line in one_d_array:
+        row = []
+        for letter in line:
+            row.append(letter)
+        two_d_array.append(row)
 
     return one_d_array, two_d_array
 
@@ -28,8 +31,11 @@ def get_right_diagonal_arr(array):
     diag = []
     for r in range(len(array)):
         diag.append(right_diag(array, r, 0, ""))
-    for c in range(len(array)):
-        diag.append(right_diag(array, 1, c, ""))
+
+    c = len(array) - 1
+    while c > 0:
+        diag.append(right_diag(array, 0, c, ""))
+        c -= 1
 
     return diag
 
@@ -38,8 +44,12 @@ def get_left_diagonal_arr(array):
     diag = []
     for r in range(len(array)):
         diag.append(left_diag(array, len(array) - r - 1, len(array) - 1, ""))
-    for c in range(len(array)):
-        diag.append(left_diag(array, len(array) - 2, len(array) - c - 1, ""))
+
+    c = len(array) - 2
+    while c > -1:
+        diag.append(left_diag(array, len(array) - 1, c, ""))
+        c -= 1
+
     return diag
 
 
@@ -69,11 +79,11 @@ left_diagonal_array = get_left_diagonal_arr(letter_array)
 
 reps = 0
 
-
 line_arr_char_count = ""
 
 for line in line_array:
     all_matches = re.findall("XMAS|SAMX", line)
+    print("LINE IS: ", line, "all matches:", all_matches)
     line_arr_char_count += line
     reps += len(all_matches)
 
@@ -83,6 +93,7 @@ col_arr_char_count = ""
 
 for line in col_array:
     all_matches = re.findall("XMAS|SAMX", line)
+    print("LINE IS: ", line, "all matches:", all_matches)
     col_arr_char_count += line
     reps += len(all_matches)
 
@@ -92,6 +103,7 @@ right_char = ""
 
 for line in right_diagonal_array:
     all_matches = re.findall("XMAS|SAMX", line)
+    print("LINE IS: ", line, "all matches:", all_matches)
     right_char += line
     reps += len(all_matches)
 
@@ -101,7 +113,15 @@ left_char = ""
 
 for line in left_diagonal_array:
     all_matches = re.findall("XMAS|SAMX", line)
+    print("LINE IS: ", line, "all matches:", all_matches)
+
     left_char += line
     reps += len(all_matches)
 
 print("Left: ", len(left_char))
+
+print(left_diagonal_array)
+
+print(line_arr_char_count)
+
+print(reps)
