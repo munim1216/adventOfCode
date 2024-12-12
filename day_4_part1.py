@@ -82,46 +82,41 @@ reps = 0
 line_arr_char_count = ""
 
 for line in line_array:
-    all_matches = re.findall("XMAS|SAMX", line)
-    print("LINE IS: ", line, "all matches:", all_matches)
+    all_matches = re.findall("XMAS|SAMX", line, True)
+    overlap_matches = re.findall("XMASAMX|SAMXMAS", line)
     line_arr_char_count += line
-    reps += len(all_matches)
+    reps += len(all_matches) + len(overlap_matches)
 
 print("Line arr: ", len(line_arr_char_count))
 
 col_arr_char_count = ""
 
 for line in col_array:
-    all_matches = re.findall("XMAS|SAMX", line)
-    print("LINE IS: ", line, "all matches:", all_matches)
+    all_matches = re.findall("XMAS|SAMX", line, True)
     col_arr_char_count += line
-    reps += len(all_matches)
+    overlap_matches = re.findall("XMASAMX|SAMXMAS", line)
+    reps += len(all_matches) + len(overlap_matches)
 
 print("Col arr: ", len(col_arr_char_count))
 
 right_char = ""
 
 for line in right_diagonal_array:
-    all_matches = re.findall("XMAS|SAMX", line)
-    print("LINE IS: ", line, "all matches:", all_matches)
+    all_matches = re.findall("XMAS|SAMX", line, True)
     right_char += line
-    reps += len(all_matches)
+    overlap_matches = re.findall("XMASAMX|SAMXMAS", line)
+    reps += len(all_matches) + len(overlap_matches)
 
 print("Right: ", len(right_char))
 
 left_char = ""
 
 for line in left_diagonal_array:
-    all_matches = re.findall("XMAS|SAMX", line)
-    print("LINE IS: ", line, "all matches:", all_matches)
-
+    all_matches = re.findall("XMAS|SAMX", line, True)
+    overlap_matches = re.findall("XMASAMX|SAMXMAS", line)
     left_char += line
-    reps += len(all_matches)
+    reps += len(all_matches) + len(overlap_matches)
 
 print("Left: ", len(left_char))
-
-print(left_diagonal_array)
-
-print(line_arr_char_count)
 
 print(reps)
