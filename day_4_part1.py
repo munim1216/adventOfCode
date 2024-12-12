@@ -69,6 +69,20 @@ def left_diag(array, r, c, diagonal_line):
         return diagonal_line
 
 
+def solve_direction(array):
+    print("NEXT ARRAY")
+    instances = 0
+    for line in array:
+        all_matches = re.findall("XMAS|SAMX", line, True)
+        overlap_matches = re.findall("XMASAMX|SAMXMAS", line)
+        instances += len(all_matches) + len(overlap_matches)
+        if all_matches.__len__() > 0:
+            print(line)
+    return instances
+
+
+reps = 0
+
 SOLUTION_1 = "XMAS"
 SOLUTION_2 = "SAMX"
 
@@ -77,46 +91,9 @@ col_array = get_col_arr(letter_array)
 right_diagonal_array = get_right_diagonal_arr(letter_array)
 left_diagonal_array = get_left_diagonal_arr(letter_array)
 
-reps = 0
-
-line_arr_char_count = ""
-
-for line in line_array:
-    all_matches = re.findall("XMAS|SAMX", line, True)
-    overlap_matches = re.findall("XMASAMX|SAMXMAS", line)
-    line_arr_char_count += line
-    reps += len(all_matches) + len(overlap_matches)
-
-print("Line arr: ", len(line_arr_char_count))
-
-col_arr_char_count = ""
-
-for line in col_array:
-    all_matches = re.findall("XMAS|SAMX", line, True)
-    col_arr_char_count += line
-    overlap_matches = re.findall("XMASAMX|SAMXMAS", line)
-    reps += len(all_matches) + len(overlap_matches)
-
-print("Col arr: ", len(col_arr_char_count))
-
-right_char = ""
-
-for line in right_diagonal_array:
-    all_matches = re.findall("XMAS|SAMX", line, True)
-    right_char += line
-    overlap_matches = re.findall("XMASAMX|SAMXMAS", line)
-    reps += len(all_matches) + len(overlap_matches)
-
-print("Right: ", len(right_char))
-
-left_char = ""
-
-for line in left_diagonal_array:
-    all_matches = re.findall("XMAS|SAMX", line, True)
-    overlap_matches = re.findall("XMASAMX|SAMXMAS", line)
-    left_char += line
-    reps += len(all_matches) + len(overlap_matches)
-
-print("Left: ", len(left_char))
+reps += solve_direction(line_array)
+reps += solve_direction(col_array)
+reps += solve_direction(right_diagonal_array)
+reps += solve_direction(left_diagonal_array)
 
 print(reps)
