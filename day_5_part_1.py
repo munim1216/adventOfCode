@@ -30,7 +30,7 @@ def get_file_data(file_name):
     return rules, pages
 
 
-rules, pages = get_file_data("input")
+rules, pages = get_file_data("input.txt")
 
 
 def rule_check(rule, page):
@@ -38,14 +38,17 @@ def rule_check(rule, page):
     after_num = re.findall("\\|.*", rule)[0][1:]
     before_idx = page.find(before_num)
     after_idx = page.find(after_num)
-    print(before_idx, after_idx)
 
-    return before_idx < after_idx or (before_idx == -1 and after_idx == -1)
+    if before_idx == -1 or after_idx == -1:
+        return True
+
+    return before_idx < after_idx
 
 
 def find_middle_num(number_string):
     string_array = number_string.split(",")
     return int(string_array[len(string_array) // 2])
+
 
 valid = []
 
@@ -53,6 +56,8 @@ for page in pages:
     safe = True
     for rule in rules:
         safe = rule_check(rule, page)
+        if not safe:
+            break
 
     if safe:
         valid.append(page)
